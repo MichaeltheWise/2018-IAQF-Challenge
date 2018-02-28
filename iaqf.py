@@ -39,7 +39,7 @@ for i in range (0,len(data['60MA'])):
     else:
         data['portfolio1_return'][i] = -(data['pct_return'][i])
 data['cumsum_portfolio1_return'] = data['portfolio1_return'].cumsum()
-# ax = data['cumsum_portfolio1_return'].plot()
+ax = data['cumsum_portfolio1_return'].plot()
 
 ## PORTFOLIO 2
 # First create option functions 
@@ -80,24 +80,24 @@ for i in range (0,len(data['60MA'])):
         putoption_tmrw = putoption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
         data['portfolio2_return'][i-1] = (putoption_tmrw - putoption_today) / putoption_today
 data['cumsum_portfolio2_return'] = data['portfolio2_return'].cumsum()
-# data['cumsum_portfolio2_return'].plot(ax = ax)
+data['cumsum_portfolio2_return'].plot(ax = ax)
 # data['cumsum_portfolio2_return'].plot()
 
 ## PORTFOLIO 3
 data['portfolio3_return'] = data['pct_return']
-for i in range (1,len(data['60MA'])):
-    if i == len(data['60MA']):
-        data['portfolio3_return'][i] = data['portfolio3_return'][i-1]
-    else:
-        straddle_calloption_today = calloption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        straddle_calloption_tmrw = calloption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        straddle_putoption_today = putoption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        straddle_putoption_tmrw = putoption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        straddle_today = straddle_calloption_today + straddle_putoption_today
-        straddle_tmrw = straddle_calloption_tmrw + straddle_putoption_tmrw
-        data['portfolio3_return'][i-1] = (straddle_tmrw - straddle_today) / straddle_today
+for i in range (1,100):# len(data['60MA'])):
+    straddle_calloption_today = calloption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
+    straddle_calloption_tmrw = calloption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
+    straddle_putoption_today = putoption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
+    straddle_putoption_tmrw = putoption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
+    straddle_calloption_return = (straddle_calloption_tmrw - straddle_calloption_today)/straddle_calloption_today
+    # print(straddle_calloption_return)
+    straddle_putoption_return = (straddle_putoption_tmrw - straddle_putoption_today)/straddle_putoption_today
+    # print(straddle_putoption_return)
+    data['portfolio3_return'][i-1] = straddle_calloption_return + straddle_putoption_return
+    # print (straddle_calloption_return + straddle_putoption_return)
 data['cumsum_portfolio3_return'] = data['portfolio3_return'].cumsum()
-# data['cumsum_portfolio3_return'].plot(ax = ax)
+data['cumsum_portfolio3_return'].plot(ax = ax)
 # data['cumsum_portfolio3_return'].plot()
 
 # ADJUST COLUMNS FOR BETTER DATA OUTPUT
@@ -126,16 +126,6 @@ for i in range (1,len(data['60MA'])):
         calloption_today = calloption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
         putoption_today = putoption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
         straddle_today = calloption_today + putoption_today
-    if i == len(data['60MA']):
-        data['portfolio2_return'][i] = data['portfolio2_return'][i-1]
-    elif (data['60MA'][i-1] > data['120MA'][i-1]) and i != len(data['60MA']):
-        calloption_today = calloption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        calloption_tmrw = calloption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        data['portfolio2_return'][i-1] = (calloption_tmrw - calloption_today) / calloption_today
-    elif (data['60MA'][i-1] < data['120MA'][i-1]) and i != len(data['60MA']):
-        putoption_today = putoption(data['price'][i-1],data['price'][i-1],90,data['volatility'][i-1],(data['3 MO'][i-1])/100)
-        putoption_tmrw = putoption(data['price'][i],data['price'][i-1],89,data['volatility'][i-1],(data['3 MO'][i-1])/100)
 
-
-
+## STILL IN CONSTRUCTION
 
