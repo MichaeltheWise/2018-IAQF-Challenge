@@ -3,7 +3,7 @@ This repository consists of various python codes written for various challenges,
 
 This branch contains the finite difference method. It is used to calculate European and American options. 
 
-The file ComputationalFinanceClass.py is a master class that contains various different functions that range from calculating the payout of an option to calculating the Greeks of an option. Furthermore, it contains five finite difference methods: implicit, explicit, Crank-Nicolson, theta-scheme and radial basis function finite difference method. One can easily call any of the functions by just satisfying the requirements. 
+The file ComputationalFinanceClass.py is a master class that contains various different functions that range from calculating the payout of an option, to calculating the Greeks of an option and even to jump diffusion Monte Carlo simulation. Furthermore, it contains five finite difference methods: implicit, explicit, Crank-Nicolson, theta-scheme and radial basis function finite difference method. One can easily call any of the functions by just satisfying the requirements. 
 
 I have codes for all the functions in the master class. However, these codes are created to satisfy the requirements of the various homework assignments. A lot of them are a bit convoluted and unimpressive. Therefore, these files are omitted. 
 
